@@ -1,0 +1,9 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+repoURL: git@github.com:stuartio/lke-reference-platform.git
+namespace: default
+argocdNamespace: argocd
+projectName: default
+cluster: "placeholder-cluster"
+domain: "k8s.stuartmacleod.net"
