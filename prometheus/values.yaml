@@ -5,6 +5,5 @@ repoURL: git@github.com:stuartio/lke-reference-platform.git
 namespace: default
 argocdNamespace: argocd
 projectName: default
-appName: prometheus
 cluster: "placeholder-cluster"
 domain: "{{ .Values.cluster }}.k8s.stuartmacleod.net"
