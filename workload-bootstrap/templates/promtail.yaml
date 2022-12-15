@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.cluster }}-promtail
+  namespace: {{ .Values.argocdNamespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.projectName }}
+  destination:
+    namespace: monitoring
+    server: {{ .Values.spec.destination.server }}
+  source:
+        repoURL: 'https://grafana.github.io/helm-charts'
+        chart: promtail
+        targetRevision: 6.7.0
+        helm:
+          releaseName: promtail
+          values: |
+            loki:
+              serviceName: loki
+            config:
+              clients:
+                - url: https://loki.monitoring.{{ .Values.domain }}/loki/api/v1/push
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
